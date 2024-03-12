@@ -1,6 +1,5 @@
 import { NextFunction, Response } from 'express';
-import { User } from '../models/user';
-import { memcache } from './cache';
+import { User } from '../db/user';
 import { redis } from './cache';
 import { config } from 'dotenv';
 import Errorhandler from './ErrorHandler';
