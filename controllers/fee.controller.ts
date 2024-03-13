@@ -6,7 +6,7 @@ import FeeStructure, { FeeStructureAttributes } from "../db/models/feeStructure"
 import Semester from "../db/models/semester";
 import Account, { AccountStructureAttributes } from "../db/models/feeAccount";
 import Payment, { PaymentAttributes } from "../db/models/payment";
-import { updateBalance } from "../services/fee.service";
+import { calculateTotal, getSemesterName, setBillStatus, updateBalance } from "../services/fee.service";
 
 /**
  * POST: Add fee structure to the database
@@ -80,7 +80,44 @@ export const payFee = CatchAsyncError(async (req: Request, res: Response, next: 
 
 
 // get student bill
+export const generateBill = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
 
+    try {
+        const {studentId} = req?.user._id;
+
+        // get student bill with details
+        const student = await Student.findOne({where: {id: studentId}});
+
+        const feeStructure =  await FeeStructure.findOne({where: {semesterId: student?.semesterId}});
+
+        if (feeStructure) {
+            const billStatus = await setBillStatus(feeStructure.dateLine);
+            let billTotal = await calculateTotal(feeStructure);
+
+            const bill = {
+                studentName: student?.firstName + '' + student?.lastName,
+                regNo: student?.regNo,
+                semesterofstudy: await getSemesterName(student?.semesterId as String),
+                fees: {
+                    tuitionFee: feeStructure?.tuitionFee,
+                    examFee: feeStructure?.libraryFee,
+                    libraryFee: feeStructure?.libraryFee,
+                    projectFee: feeStructure?.projectFee
+                },
+                totalPayable: billTotal,
+                billStatus: billStatus
+            }
+
+            res.status(200).json({
+                success: true,
+                bill
+            })
+        }
+
+    } catch (error: any) {
+        return next(new Errorhandler(error.message, 500));
+    }
+});
 
 // get all fee structures -- only admin
 export const getAllFeeStructures = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
