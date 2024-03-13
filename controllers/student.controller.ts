@@ -10,14 +10,14 @@ import Student, { StudentAttributes } from "../db/models/student";
 export const createStudent = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
 
     try {
-        const {firstName, lastName, address, regNo, userId} = req.body as StudentAttributes;
+        const {firstName, lastName, address, regNo, userId, semesterId} = req.body as StudentAttributes;
 
         let studentExists = await Student.findOne({where: {regNo: regNo}});
         if (studentExists) {
             return next(new Errorhandler("Student already exists", 400));
         }
 
-        const student: StudentAttributes = await Student.create({firstName, lastName, address, regNo, userId});
+        const student: StudentAttributes = await Student.create({firstName, lastName, address, regNo, userId, semesterId});
         res.status(201).json({
             success: true,
             student,

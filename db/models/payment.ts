@@ -2,10 +2,11 @@ import { DATE, DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '.';
 import Student from './student';
 
-interface PaymentAttributes {
+export interface PaymentAttributes {
     id: String;
     amount: number;
     paymentMethod: String;
+    studentId: String
 }
 
 interface PaymentCreationAttributes
@@ -39,6 +40,13 @@ const Payment = sequelize.define<PaymentInstance>(
         allowNull: false,
         type: DataTypes.STRING,
         defaultValue: 'bank',
+      },
+      studentId: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        references: {
+          model: Student
+        }
       }
 
     }

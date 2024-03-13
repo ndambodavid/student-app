@@ -1,7 +1,7 @@
 {
     "development": {
-      "username": "springboot",
-      "password": "springpass",
+      "username": "root",
+      "password": "maiko",
       "database": "student_bill",
       "host": "127.0.0.1",
       "dialect": "mysql"

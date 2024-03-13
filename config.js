@@ -1,7 +1,7 @@
 export const config = {
   development: {
-    username: 'springboot',
-    password: 'springpass',
+    username: 'root',
+    password: 'maiko',
     database: 'student_bill',
     host: 'localhost',
     dialect: 'mysql'

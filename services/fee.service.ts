@@ -1,17 +1,16 @@
 import { Request, Response } from "express";
 import { CatchAsyncError } from "../middleware/AsyncErrors";
 import Semester from "../db/models/semester";
+import Account from "../db/models/feeAccount";
 
 
-// create semester
-export const feePayment = CatchAsyncError(async (data: any, res: Response) => {
-    const semester = Semester.build(data);
-    await semester.save()
-    res.status(201).json({
-        success: true,
-        semester,
-    })
-});
+// update account balance
+export const updateBalance = async (amount: number, studentId: String) => {
+    const studentAccount = await Account.findOne({where: {studentId: studentId}});
+    if (studentAccount) {
+        studentAccount.balance += amount;
+    }
+};
 
 // get all semesters --admin
 export const getAllSemesters = CatchAsyncError(async (req: Request, res: Response) => {
