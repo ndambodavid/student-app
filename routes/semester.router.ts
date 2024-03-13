@@ -4,7 +4,7 @@ import { createSemester, getAllSemesters } from "../controllers/semester.control
 
 const semesterRouter = express.Router();
 
-semesterRouter.post("/create-semester", createSemester);
+semesterRouter.post("/create-semester",isAuthenticated, authorizeRoles("admin"), createSemester);
 
 semesterRouter.get(
     "/get-semesters",

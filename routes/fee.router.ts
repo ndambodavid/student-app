@@ -5,14 +5,14 @@ import { createFeeAccount, createFeeStructure, generateBill, getAllFeeStructures
 
 const feeRouter = express.Router();
 
-feeRouter.post("/create-fee-structure", createFeeStructure);
+feeRouter.post("/create-fee-structure",isAuthenticated,authorizeRoles("admin"), createFeeStructure);
 
-feeRouter.post("/create-fee-account", createFeeAccount);
+feeRouter.post("/create-fee-account",isAuthenticated,authorizeRoles("admin"), createFeeAccount);
 
-feeRouter.post("/pay-fees", payFee);
+feeRouter.post("/pay-fees",isAuthenticated, authorizeRoles("admin"), payFee);
 
-feeRouter.get("/view-bill", generateBill);
+feeRouter.get("/view-bill",isAuthenticated, generateBill);
 
-feeRouter.get("/get-students", getAllFeeStructures);
+feeRouter.get("/get-students",isAuthenticated, authorizeRoles("admin"), getAllFeeStructures);
 
 export default feeRouter;

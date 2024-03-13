@@ -6,7 +6,7 @@ export interface PaymentAttributes {
     id: String;
     amount: number;
     paymentMethod: String;
-    studentId: String
+    studentId?: String
 }
 
 interface PaymentCreationAttributes
@@ -40,13 +40,6 @@ const Payment = sequelize.define<PaymentInstance>(
         allowNull: false,
         type: DataTypes.STRING,
         defaultValue: 'bank',
-      },
-      studentId: {
-        allowNull: false,
-        type: DataTypes.STRING,
-        references: {
-          model: Student
-        }
       }
 
     }

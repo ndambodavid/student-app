@@ -7,7 +7,7 @@ import { FeeStructureAttributes } from "../db/models/feeStructure";
 
 
 // update account balance
-export const updateBalance = async (amount: number, studentId: String) => {
+export const updateBalance = async (amount: number, studentId: string) => {
     const studentAccount = await Account.findOne({where: {studentId: studentId}});
     if (studentAccount) {
         studentAccount.balance += amount;

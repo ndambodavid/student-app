@@ -6,7 +6,7 @@ import Student from './student';
 export interface AccountStructureAttributes {
     id: String;
     balance: number;
-    studentId: String;
+    studentId?: String;
 }
 
 interface AccountStuctureCreationAttributes
@@ -35,13 +35,6 @@ const Account = sequelize.define<AccountInstance>(
         allowNull: false,
         type: DataTypes.DECIMAL,
         defaultValue: 0.00,
-      },
-      studentId: {
-        allowNull: false,
-        type: DataTypes.STRING,
-        references: {
-          model: Student
-        }
       }
     }
   );

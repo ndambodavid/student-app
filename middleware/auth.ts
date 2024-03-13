@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { CatchAsyncError } from "./AsyncErrors";
 import Errorhandler from "../utils/ErrorHandler";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { memcache } from "../utils/cache";
 import { redis } from "../utils/cache";
 import { config } from 'dotenv';
 config();

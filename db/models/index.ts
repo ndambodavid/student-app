@@ -2,8 +2,8 @@ import { Sequelize } from 'sequelize';
 import path from 'path';
 const config = {
   development: {
-    username: 'springboot',
-    password: 'springpass',
+    username: 'root',
+    password: 'maiko',
     database: 'student_bill',
     host: 'localhost',
     dialect: 'mysql'

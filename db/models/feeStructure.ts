@@ -9,8 +9,8 @@ export interface FeeStructureAttributes {
     examFee: number;
     libraryFee: number;
     projectFee: number;
-    dateLine: Date;
-    semesterId: String;
+    dateLine?: Date;
+    semesterId?: String;
 }
 
 interface FeeStuctureCreationAttributes
@@ -57,14 +57,7 @@ const FeeStructure = sequelize.define<FeeStructureInstance>(
       dateLine: {
         allowNull: true,
         type: DataTypes.DATE,
-        defaultValue: () => addHours(new Date(), 1)
-      },
-      semesterId: {
-        allowNull: false,
-        type: DataTypes.STRING,
-        references: {
-          model: Semester
-        }
+        defaultValue: () => addHours(new Date(), 3)
       }
 
     }

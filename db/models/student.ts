@@ -9,7 +9,7 @@ export interface StudentAttributes {
     address: String;
     regNo: String;
     userId: String;
-    semesterId: String;
+    semesterId?: String;
 }
 
 interface StudentCreationAttributes
@@ -50,14 +50,6 @@ const Student = sequelize.define<StudentInstance>(
         allowNull: false,
         type: DataTypes.STRING,
         unique: true
-      },
-      semesterId: {
-        allowNull: false,
-        type: DataTypes.STRING,
-        references: {
-          model: Semester
-        }
-        
       },
       userId: {
         allowNull: false,

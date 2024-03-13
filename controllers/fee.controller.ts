@@ -71,7 +71,7 @@ export const payFee = CatchAsyncError(async (req: Request, res: Response, next: 
         })
 
         // update account balance
-        await updateBalance(amount, studentId);
+        await updateBalance(amount, studentId as string);
 
     } catch (error: any) {
         return next(new Errorhandler(error.message, 500));
@@ -83,7 +83,7 @@ export const payFee = CatchAsyncError(async (req: Request, res: Response, next: 
 export const generateBill = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
 
     try {
-        const {studentId} = req?.user._id;
+        const {studentId} = req.body;
 
         // get student bill with details
         const student = await Student.findOne({where: {id: studentId}});
@@ -91,7 +91,7 @@ export const generateBill = CatchAsyncError(async (req: Request, res: Response, 
         const feeStructure =  await FeeStructure.findOne({where: {semesterId: student?.semesterId}});
 
         if (feeStructure) {
-            const billStatus = await setBillStatus(feeStructure.dateLine);
+            const billStatus = await setBillStatus(feeStructure.dateLine as Date);
             let billTotal = await calculateTotal(feeStructure);
 
             const bill = {

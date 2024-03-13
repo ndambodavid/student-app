@@ -138,6 +138,8 @@ export const loginUser = CatchAsyncError(async (req: Request, res: Response, nex
 
         const user = await usermodel.findOne({email}).select("+password")
 
+        // console.log("user=====>", user);
+
         if(!user) {
             return next(new Errorhandler("invalid email or password", 400))
         }
